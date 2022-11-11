@@ -49,15 +49,20 @@ const getAndCreateBooks = async () => {
   books.forEach(createBookCard)
 }
 
-const displayBooksBtn = document.querySelector(".display-books")
-displayBooksBtn.addEventListener("click", getAndCreateBooks)
-getAndCreateBooks()
+function onDisplay() {
+  const displayBooksBtn = document.querySelector(".display-books")
+  displayBooksBtn.addEventListener("click", getAndCreateBooks)
+  getAndCreateBooks()
+}
 
-const searchAndDisplay = async () => {
-  const response = await fetch("https://striveschool-api.herokuapp.com/books")
-  const list = await response.json()
-  const filteredList = list.filter((list) => list.title.includes(searchedValue))
-  filteredList.forEach(createBookCard)
-
-  console.log(searchAndDisplay)
+function onSearchBook() {
+  const searchAndDisplay = async () => {
+    const response = await fetch("https://striveschool-api.herokuapp.com/books")
+    const list = await response.json()
+    const filteredList = list.filter((list) =>
+      list.title.includes(searchedValue)
+    )
+    filteredList.forEach(createBookCard)
+    searchAndDisplay()
+  }
 }
